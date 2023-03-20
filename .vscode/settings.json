@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "workbench.h": "c",
+        "filter.h": "c"
+    }
+}
