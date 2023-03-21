@@ -7,12 +7,12 @@ struct _WorkBench wbList[WORKBENCHNUMBER];
 
 bool workbench_is_blocking(struct _WorkBench* wb)
 {
-    return wb->wbStatus == BLOCKING;
+    return wb->wbRemainTime == BLOCKING;
 }
 
 bool workbench_no_procedure(struct _WorkBench* wb)
 {
-    return wb->wbStatus < BLOCKING;
+    return wb->wbRemainTime < BLOCKING;
 }
 
 
@@ -27,7 +27,7 @@ size_t workbench_needed_item(struct _WorkBench* wb)
 */
 size_t workbench_ready_time(struct _WorkBench* wb)
 {
-    return wb->wbStatus;
+    return wb->wbRemainTime;
 }
 
 /**
@@ -35,17 +35,28 @@ size_t workbench_ready_time(struct _WorkBench* wb)
 */
 void workbench_read_status(struct _WorkBench* wb)
 {
-    scanf("%f %f %d %d %d\n",
-            wb->positionX,
-            wb->positionY,
-            wb->wbStatus,
-            wb->ownItem,
-            wb->hasOutItem);
+    size_t order;
+    scanf("%d %f %f %d %d %d\n",
+            order,
+            &wb->positionX,
+            &wb->positionY,
+            &wb->wbRemainTime,
+            &wb->ownItem,
+            &wb->hasOutItem);
 }
 
+/**
+ * @brief 重设工作台选中状态
+ * @birth: Created by LGD on 2023-3-21
+*/
+void workbench_target_set_status(struct _WorkBench* wb,enum _ROBOT_MARCO value)
+{
+    wb->beenTargeted = value;
+}
 
 /**
  * @brief 初始化工作台信息
+ * @birth: Created by LGD on 2023-3-20
 */
 void workbench_initialize()
 {
@@ -76,16 +87,5 @@ void workbench_initialize()
 
 
 
-// /**
-//  * @brief 工作台过滤器
-// */
-// bool workBenchFilter(struct _WorkBench* wb,enum _WorkBenchFilterOption opt,void* addition)
-// {
-//     switch(opt)
-//     {
-//         case SPECIFIED_ITEM:
-//         //当前工作台是否生产指定物品
-//         return (wb->produceItem & (size_t)addition) != 0;
-//     }
-// }
+
 

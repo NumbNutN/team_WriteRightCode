@@ -1,0 +1,33 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: Debugging in Visual Studio Code
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Linux下", //配置名称，显示在配置下拉菜单中
+            "type": "cppdbg", //配置类型
+            "request": "launch", //请求配置类型，可以是启动或者是附加
+            "program": "${workspaceFolder}/bin/robot", // linux上程序可执行文件的完整路径         
+            "args": [
+                "<","input.txt"
+            ], //传递给程序的命令行参数
+            "stopAtEntry": false,//可选参数，如果为true,调试程序应该在入口（main）处停止
+            "cwd": "${workspaceFolder}/bin", //目标的工作目录
+            "environment": [], //表示要预设的环境变量
+            "externalConsole": false,//如果为true，则为调试对象启动控制台
+            "MIMode": "gdb",
+            "miDebuggerPath": "/bin/gdb",
+            "setupCommands": [ //为了安装基础调试程序而执行的一个或多个GDB/LLDB命令
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build"
+    
+        }
+    ]
+}

@@ -1,8 +1,8 @@
- #include "cfg.h"
+#include "cfg.h"
 #include "robot.h"
 #include "workbench.h"
 #include <math.h>
-#include "filter.h"
+#include "myFilter.h"
 
 /**
  * @brief 判断浮点数是否同号
@@ -33,10 +33,14 @@ float calculate_angle(struct _Robot* bot,struct _WorkBench* wb)
         return bot->toWard - workBenchDirection;
     }
     else{
-        if(abs((workBenchDirection)/(bot->toWard - PI)) < 1)
+        if(fabs((workBenchDirection)/(bot->toWard - PI)) < 1)
             return bot->toWard - workBenchDirection;
-        else    
-            return 2*PI - abs(bot->toWard) - abs(workBenchDirection);
+        else   
+        {
+            float result = 2*PI - fabs(bot->toWard) - fabs(workBenchDirection);
+            return 2*PI - fabs(bot->toWard) - fabs(workBenchDirection);
+        }
+            
     }
     
 }
@@ -46,7 +50,7 @@ float calculate_angle(struct _Robot* bot,struct _WorkBench* wb)
 */
 size_t convertSec2Frame(float sec)
 {
-    return (size_t)(sec/50);
+    return (size_t)(sec*50);
 }
 /**
  * @brief 计算机器人到达工作台的时间
@@ -54,7 +58,7 @@ size_t convertSec2Frame(float sec)
 float calculate_arrive_time(struct _Robot* bot,struct _WorkBench* wb)
 {
 #ifdef LOW_LEVEL_KINESIOLOGY
-    float veerTimeSec = calculate_angle(bot,wb) / ROBOT_MAX_PALSTANCE;
+    float veerTimeSec = calculate_angle(bot,wb)  / ROBOT_MAX_PALSTANCE;
     float driveTimeSec = calculate_distance(bot,wb) / ROBOT_MAX_LINEAR_VELOCITY_FORWARD;
     return convertSec2Frame(veerTimeSec + driveTimeSec);
 #endif
@@ -64,13 +68,11 @@ float calculate_arrive_time(struct _Robot* bot,struct _WorkBench* wb)
  * @brief 返回满足选择器要求的工作台
  * @param filter:function 过滤器，只有满足filter要求的序号会被选择器考虑
  * @param selector:function 选择器，遍历所有工作台选择一个满足条件的最优情况
- * @return 0-WORKBENCHNUMBER 如果没有符合条件的，则返回-1
+ * @return 0-WORKBENCHNUMBER 如果没有符合条件的，则返回NULL
  * @birth: Created by LGD on 2023-3-20
 */
-size_t selectWorkBench(struct _Robot* bot,bool(*filter)(struct _WorkBench*,struct _Robot*),bool(*selector)(struct _WorkBench*,struct _Robot*,int))
+struct _WorkBench* selectWorkBench(struct _Robot* bot,bool(*filter)(struct _WorkBench*,struct _Robot*),bool(*selector)(struct _WorkBench*,struct _Robot*,int))
 {
-    int smallestTimeDifference;
-    int newTimeDifference;
     int recordOrder = -1;
     for(int i=0;i<workbenchNumber;i++)
     {
@@ -84,24 +86,41 @@ size_t selectWorkBench(struct _Robot* bot,bool(*filter)(struct _WorkBench*,struc
             recordOrder = i;
         
     }
-    return recordOrder;
+    return recordOrder == -1? NULL : &wbList[recordOrder];
 }
 
-
+/**
+ * @brief 决策机器人行为
+ * @birth: Created by LGD on 2023-3-21
+*/
 void arbitrate_robot_behavior(struct _Robot* bot)
 {
 #ifdef LOW_LEVEL_KINESIOLOGY
     size_t carryItem;
     struct _WorkBench* selectedWb;
     if(!(carryItem = botCarryItemOrder(bot)))
-    {
         //未拿取物品
         selectedWb = selectWorkBench(bot,NULL,selectorMininumArrivedPurchase);
-    }
     else
-    {
         //拿取了物品
         selectedWb = selectWorkBench(bot,filterIfSpecifiedItem,selectorMininumArrivedTime);
+    //设置机器人任务
+    robot_set_task(bot,selectedWb);
+    if(selectedWb)
+    {
+        //设置机器人行为
+        robot_set_rotate(bot,calculate_angle(bot,selectedWb));
+        robot_set_toWardSpeed(bot,calculate_distance(bot,selectedWb));
     }
 #endif
 }
+
+/**
+ * @brief 当前帧决策
+*/
+void arbitrate_robot_behavior_frame()
+{
+    for (int i=0;i<ROBOT_NUMBER;i++)
+            arbitrate_robot_behavior(&botList[i]);
+}
+

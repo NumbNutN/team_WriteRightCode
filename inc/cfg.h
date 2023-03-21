@@ -1,6 +1,13 @@
 #ifndef CFG_H
 #define CFG_H
 
+//一些宏
+enum _ROBOT_MARCO
+{
+    RESET = 0,
+    SET = 1
+};
+
 //定义工作台数量
 #define WORKBENCHNUMBER 9
 
