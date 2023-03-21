@@ -16,7 +16,8 @@ bool is_same_sybol(float a,float b)
 */
 float calculate_distance(struct _Robot* bot,struct _WorkBench* wb)
 {
-    return pow(pow(bot->LocationX - wb->positionX,2) + pow(bot->LocationY - wb->positionY,2),0.5);
+    float distance = pow(pow(bot->LocationX - wb->positionX,2) + pow(bot->LocationY - wb->positionY,2),0.5);
+    return distance;
 }
 
 /**

@@ -52,8 +52,9 @@ extern size_t workbenchNumber;
 /**
  * @brief 初始化工作台信息
  * @birth: Created by LGD on 2023-3-20
+ * @update: 工作台的类型不应依下标
 */
-void workbench_initialize();
+void workbench_initialize(struct _WorkBench* wb,size_t type);
 /**
  * @brief 读取工作台的状态
 */

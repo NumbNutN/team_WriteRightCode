@@ -11,6 +11,18 @@
             "cppStandard": "c++14",
             "intelliSenseMode": "linux-gcc-x64",
             "configurationProvider": "ms-vscode.makefile-tools"
+        },
+        {
+            "name": "Windows",
+            "includePath": [
+                "${workspaceFolder}/inc"
+            ],
+            "defines": [],
+            "compilerPath": "D:\\Coding\\mingw64\\bin\\gcc.exe",
+            "cStandard": "c99",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

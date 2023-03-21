@@ -63,6 +63,6 @@ void robot_set_rotate(struct _Robot* bot,float angle)
 void robot_set_toWardSpeed(struct _Robot* bot,float distance)
 {
 #ifdef LOW_LEVEL_KINESIOLOGY
-    bot->toWard = distance > ROBOT_MAX_LINEAR_VELOCITY_FORWARD ? ROBOT_MAX_LINEAR_VELOCITY_FORWARD : distance;
+    bot->forward = distance > ROBOT_MAX_LINEAR_VELOCITY_FORWARD ? ROBOT_MAX_LINEAR_VELOCITY_FORWARD : distance;
 #endif    
 }

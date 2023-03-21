@@ -2,7 +2,7 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "build makefile",
+            "label": "build makefile in Windows",
             "command": "cmake",
             "args": [
                 ".."
@@ -13,7 +13,35 @@
         },
         {
             "type": "shell",
-            "label": "build executable file",
+            "label": "build executable file in Windows",
+            "command":"mingw32-make",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "label": "Build in Windows",
+            "dependsOn":[
+                "build makefile in Windows",
+                "build executable file in Windows"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "type": "shell",
+            "label": "build makefile in Linux",
+            "command": "cmake",
+            "args": [
+                ".."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "type": "shell",
+            "label": "build executable file in Linux",
             "command":"make",
             "args": [],
             "options": {
@@ -21,10 +49,10 @@
             }
         },
         {
-            "label": "Build",
+            "label": "Build in Linux",
             "dependsOn":[
-                "build makefile",
-                "build executable file"
+                "build makefile in Linux",
+                "build executable file in Linux"
             ],
             "dependsOrder": "sequence"
         }

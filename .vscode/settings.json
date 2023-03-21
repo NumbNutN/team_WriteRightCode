@@ -2,6 +2,7 @@
     "files.associations": {
         "workbench.h": "c",
         "filter.h": "c",
-        "strategy.h": "c"
+        "strategy.h": "c",
+        "cmath": "c"
     }
 }

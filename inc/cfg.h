@@ -9,7 +9,7 @@ enum _ROBOT_MARCO
 };
 
 //定义工作台数量
-#define WORKBENCHNUMBER 9
+#define WORKBENCHNUMBER 50
 
 //设置地图
 #define MAP1
