@@ -4,30 +4,30 @@
     // For more information, visit: Debugging in Visual Studio Code
     "version": "0.2.0",
     "configurations": [
-        // {
-        //     "name": "Windows下构建", //配置名称，显示在配置下拉菜单中
-        //     "type": "cppdbg", //配置类型
-        //     "request": "launch", //请求配置类型，可以是启动或者是附加
-        //     "program": "${workspaceFolder}/bin/main.exe", // windows上程序可执行文件的完整路径         
-        //     "args": [
-        //         "<", "${workspaceFolder}/test/input.txt"
-        //     ], //传递给程序的命令行参数
-        //     //"${workspaceFolder}/console/WindowsRelease/SDK/c/bin/main.exe"
-        //     "stopAtEntry": false,//可选参数，如果为true,调试程序应该在入口（main）处停止
-        //     "cwd": "${workspaceFolder}/console/WindowsRelease", //目标的工作目录
-        //     "environment": [], //表示要预设的环境变量
-        //     "externalConsole": false,//如果为true，则为调试对象启动控制台
-        //     "MIMode": "gdb",
-        //     "miDebuggerPath": "D:\\Coding\\mingw64\\bin\\gdb.exe",
-        //     "setupCommands": [ //为了安装基础调试程序而执行的一个或多个GDB/LLDB命令
-        //         {
-        //             "description": "为 gdb 启用整齐打印",
-        //             "text": "-enable-pretty-printing",
-        //             "ignoreFailures": true
-        //         }
-        //     ],
-        //     "preLaunchTask": "Build in Windows"
-        // }
+        {  
+            "name": "Windows下本地测试", //配置名称，显示在配置下拉菜单中
+            "type": "cppdbg", //配置类型
+            "request": "launch", //请求配置类型，可以是启动或者是附加
+            "program": "${workspaceFolder}/bin/main.exe", // windows上程序可执行文件的完整路径         
+            "args": [
+                "<", "${workspaceFolder}/test/input.txt"
+            ], //传递给程序的命令行参数
+            //"${workspaceFolder}/console/WindowsRelease/SDK/c/bin/main.exe"
+            "stopAtEntry": false,//可选参数，如果为true,调试程序应该在入口（main）处停止
+            "cwd": "${workspaceFolder}/console/WindowsRelease", //目标的工作目录
+            "environment": [], //表示要预设的环境变量
+            "externalConsole": false,//如果为true，则为调试对象启动控制台
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:\\Coding\\mingw64\\bin\\gdb.exe",
+            "setupCommands": [ //为了安装基础调试程序而执行的一个或多个GDB/LLDB命令
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build in Windows"
+        },
         {
             "name": "Windows下构建", //配置名称，显示在配置下拉菜单中
             "type": "cppdbg", //配置类型
@@ -52,31 +52,31 @@
                 }
             ],
             "preLaunchTask": "Build in Windows"
-        }
-        // {
-        //     "name": "Linux下构建", //配置名称，显示在配置下拉菜单中
-        //     "type": "cppdbg", //配置类型
-        //     "request": "launch", //请求配置类型，可以是启动或者是附加
-        //     "program": "${workspaceFolder}/bin/robot", // linux上程序可执行文件的完整路径         
-        //     "args": [
-        //         "<","../test/input.txt"
-        //     ], //传递给程序的命令行参数
-        //     "stopAtEntry": false,//可选参数，如果为true,调试程序应该在入口（main）处停止
-        //     "cwd": "${workspaceFolder}/bin", //目标的工作目录
-        //     "environment": [], //表示要预设的环境变量
-        //     "externalConsole": false,//如果为true，则为调试对象启动控制台
-        //     "MIMode": "gdb",
-        //     "miDebuggerPath": "/bin/gdb",
-        //     "setupCommands": [ //为了安装基础调试程序而执行的一个或多个GDB/LLDB命令
-        //         {
-        //             "description": "为 gdb 启用整齐打印",
-        //             "text": "-enable-pretty-printing",
-        //             "ignoreFailures": true
-        //         }
-        //     ],
-        //     "preLaunchTask": "Build in Linux"
+        },
+        {
+            "name": "Linux下构建", //配置名称，显示在配置下拉菜单中
+            "type": "cppdbg", //配置类型
+            "request": "launch", //请求配置类型，可以是启动或者是附加
+            "program": "${workspaceFolder}/console/LinuxRelease/Robot_gui", // linux上程序可执行文件的完整路径         
+            "args": [
+                "-d","-m","${workspaceFolder}/console/LinuxRelease/maps/1.txt","${workspaceFolder}/bin/main"
+            ], //传递给程序的命令行参数
+            "stopAtEntry": false,//可选参数，如果为true,调试程序应该在入口（main）处停止
+            "cwd": "${workspaceFolder}/console/LinuxRelease", //目标的工作目录
+            "environment": [], //表示要预设的环境变量
+            "externalConsole": false,//如果为true，则为调试对象启动控制台
+            "MIMode": "gdb",
+            "miDebuggerPath": "/bin/gdb",
+            "setupCommands": [ //为了安装基础调试程序而执行的一个或多个GDB/LLDB命令
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build in Linux"
     
-        // }
+        }
         
     ]
 }

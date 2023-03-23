@@ -1,4 +1,5 @@
 #include "myFilter.h"
+#include "strategy.h"
 
 /****************************************************/
 /*                       过滤器                      */
@@ -8,8 +9,12 @@
 */
 bool filterIfSpecifiedItem(struct _WorkBench* wb,struct _Robot* bot)
 {
-    return ((wb->neededItem & ~(wb->ownItem)) | bot->carry_item)!=0;
+    return ((wb->neededItem & ~(wb->ownItem)) & bot->carry_item)!=0;
 }
+
+/**
+ * @brief filter:过滤出当前生产出物品的工作台
+*/
 
 
 
@@ -23,11 +28,11 @@ bool filterIfSpecifiedItem(struct _WorkBench* wb,struct _Robot* bot)
 */
 bool selectorMininumArrivedTime(struct _WorkBench* wb,struct _Robot* bot,int reset)
 {
-    static int smallestTimeDifference = 99999;
+    static int smallestTimeDifference = INFINITY;
     int newTimeDifference;
 
     if(!reset)
-        smallestTimeDifference = 99999;
+        smallestTimeDifference = INFINITY;
 
     newTimeDifference = calculate_arrive_time(bot,wb);
         smallestTimeDifference = \
@@ -46,11 +51,11 @@ bool selectorMininumArrivedTime(struct _WorkBench* wb,struct _Robot* bot,int res
 */
 bool selectorMininumArrivedPurchase(struct _WorkBench* wb,struct _Robot* bot,int reset)
 {
-    static int smallestTimeDifference = 99999;
+    static int smallestTimeDifference = INFINITY;
     int newTimeDifference;
 
     if(!reset)
-        smallestTimeDifference = 99999;
+        smallestTimeDifference = INFINITY;
 
     newTimeDifference = calculate_arrive_time(bot,wb) - workbench_ready_time(wb);
         smallestTimeDifference = \

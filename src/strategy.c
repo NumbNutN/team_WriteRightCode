@@ -29,6 +29,7 @@ float calculate_angle(struct _Robot* bot,struct _WorkBench* wb)
     //计算反正切
     float workBenchDirection = atan(tan_value);
 
+#ifdef CALCULATE_ANGLE_STRATEGY_1
     if(is_same_sybol(bot->toWard,workBenchDirection))
     {
         return bot->toWard - workBenchDirection;
@@ -43,7 +44,17 @@ float calculate_angle(struct _Robot* bot,struct _WorkBench* wb)
         }
             
     }
-    
+#endif
+#ifdef CALCULATE_ANGLE_STRATEGY_2
+    float botToWord = bot->toWard;
+    if(bot->toWard <0)
+        botToWord = 2*PI + bot->toWard;
+
+    if(botToWord - workBenchDirection < PI)
+        return -(botToWord - workBenchDirection);
+    else
+        return 2*PI - (botToWord - workBenchDirection);
+#endif
 }
 
 /**
@@ -56,7 +67,7 @@ size_t convertSec2Frame(float sec)
 /**
  * @brief 计算机器人到达工作台的时间
 */
-float calculate_arrive_time(struct _Robot* bot,struct _WorkBench* wb)
+size_t calculate_arrive_time(struct _Robot* bot,struct _WorkBench* wb)
 {
 #ifdef LOW_LEVEL_KINESIOLOGY
     float veerTimeSec = calculate_angle(bot,wb)  / ROBOT_MAX_PALSTANCE;
@@ -105,13 +116,14 @@ void arbitrate_robot_behavior(struct _Robot* bot)
     else
         //拿取了物品
         selectedWb = selectWorkBench(bot,filterIfSpecifiedItem,selectorMininumArrivedTime);
-    //设置机器人任务
-    robot_set_task(bot,selectedWb);
     if(selectedWb)
     {
-        //设置机器人行为
+        //设置机器人任务
+        robot_set_task(bot,selectedWb);
+        //设置机器人运动行为
         robot_set_rotate(bot,calculate_angle(bot,selectedWb));
         robot_set_toWardSpeed(bot,calculate_distance(bot,selectedWb));
+        //设置机器人购买行为
     }
 #endif
 }

@@ -2,8 +2,12 @@ cmake_minimum_required(VERSION 3.12)
 project(main)
 
 SET(CMAKE_C_STANDARD 99)
-SET(CMAKE_C_COMPILER D:\\Coding\\mingw64\\bin\\gcc.exe)
 
+if (CMAKE_SYSTEM_NAME MATCHES "Windows")
+    SET(CMAKE_C_COMPILER D:\\Coding\\mingw64\\bin\\gcc.exe)
+elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
+    SET(CMAKE_C_COMPILER /usr/bin/gcc)
+endif()
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 

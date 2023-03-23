@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#define INFINITY 999999
 enum _ItemOrder
 {
     ITEM1 = 1,
@@ -17,8 +18,8 @@ enum _ItemOrder
 
 enum _WBStatus
 {
-    NO_PRODUCE = -1,
-    BLOCKING = 0
+    NO_PRODUCE = -1,        //生产资料不充足，无法生产
+    BLOCKING = 0            //生成完成，阻塞
 };
 
 typedef struct _WorkBench
@@ -64,7 +65,7 @@ void workbench_read_status(struct _WorkBench* wb);
  * @brief 返回工作台物品准备时间
  * @birth: Created by LGD on 2023-3-20
 */
-size_t workbench_ready_time(struct _WorkBench* wb);
+int workbench_ready_time(struct _WorkBench* wb);
 
 /**
  * @brief 重设工作台状态

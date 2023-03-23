@@ -15,8 +15,10 @@ enum _BotStatus
 
 typedef struct _Robot
 {
+    //机器人ID
+    size_t botID;
     //所处工作台ID
-    size_t localtion_wb_id;
+    int localtion_wb_id;
     //携带物品类型
     size_t carry_item;
 
@@ -56,6 +58,11 @@ typedef struct _Robot
 extern struct _Robot botList[ROBOT_NUMBER];
 
 /**
+ * @brief 机器人初始化
+*/
+void botInit();
+
+/**
  * @brief 读取机器人的状态
 */
 void robot_read_status(struct _Robot* bot);
@@ -78,4 +85,10 @@ void robot_set_rotate(struct _Robot* bot,float angle);
  * @birth: Created by LGD on 2023-3-21
 */
 void robot_set_toWardSpeed(struct _Robot* bot,float distance);
+
+/**
+ * @brief 设置机器人购买/消费行为
+ * @birth: Created by LGD on 2023-3-22
+*/
+void robot_set_purchase_sell(struct _Robot* bot);
 #endif /*ROBOT_H*/

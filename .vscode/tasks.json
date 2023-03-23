@@ -5,10 +5,12 @@
             "label": "build makefile in Windows",
             "command": "cmake",
             "args": [
+                "-G", 
+                "MinGW Makefiles",
                 ".."
             ],
             "options": {
-                "cwd": "${workspaceFolder}/build"
+                "cwd": "${workspaceFolder}/build_windows"
             }
         },
         {
@@ -17,7 +19,7 @@
             "command":"mingw32-make",
             "args": [],
             "options": {
-                "cwd": "${workspaceFolder}/build"
+                "cwd": "${workspaceFolder}/build_windows"
             }
         },
         {
@@ -36,7 +38,7 @@
                 ".."
             ],
             "options": {
-                "cwd": "${workspaceFolder}/build"
+                "cwd": "${workspaceFolder}/build_linux"
             }
         },
         {
@@ -45,7 +47,7 @@
             "command":"make",
             "args": [],
             "options": {
-                "cwd": "${workspaceFolder}/build"
+                "cwd": "${workspaceFolder}/build_linux"
             }
         },
         {
