@@ -111,7 +111,7 @@ void read_next_frame()
     }
     readUntilOK();
 
-#elif define READ_FRAME_SCAN_FORMAT 
+#elif defined READ_FRAME_SCAN_FORMAT 
     //第一行 帧序号 和 金钱数
     size_t money;
     scanf("%d\n",&money);

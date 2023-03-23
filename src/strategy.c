@@ -112,7 +112,7 @@ void arbitrate_robot_behavior(struct _Robot* bot)
     struct _WorkBench* selectedWb;
     if(!(carryItem = botCarryItemOrder(bot)))
         //未拿取物品
-        selectedWb = selectWorkBench(bot,NULL,selectorMininumArrivedPurchase);
+        selectedWb = selectWorkBench(bot,filterIfNotTargeted,selectorMininumArrivedPurchase);
     else
         //拿取了物品
         selectedWb = selectWorkBench(bot,filterIfSpecifiedItem,selectorMininumArrivedTime);
